@@ -1,11 +1,16 @@
 import "./App.css";
-
+import { CssBaseline } from "@mui/material";
+import { Route, Routes } from "react-router-dom";
+import { Movies, Navbar, Profile } from "./Components";
 function App() {
   return (
-    <div className="RHD">
-      <div className="RH-banner bg-primary">
-        <h1>hello</h1>
-      </div>
+    <div>
+      <CssBaseline />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Movies />} />
+        <Route path="/profile/:id" element={<Profile />} />
+      </Routes>
     </div>
   );
 }
