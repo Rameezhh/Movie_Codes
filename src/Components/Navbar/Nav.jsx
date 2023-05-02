@@ -8,28 +8,75 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import WidgetsIcon from "@mui/icons-material/Widgets";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AccountCircle, Brightness4, Brightness7 } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
+import Slider from "../Slider/Slider";
+import "./nav.scss";
 const Nav = () => {
   const inMobile = useMediaQuery("( max-width: 720px )");
   const isAthenticated = true;
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  /////////////////for Dark theme///////////////////
+  const [DTheme, setDTheme] = useState(
+    localStorage.getItem("selectedTheme") || "light"
+  );
+
+  useEffect(() => {
+    document.querySelector("body").setAttribute("data-theme", DTheme);
+    localStorage.setItem("selectedTheme", DTheme);
+  }, [DTheme]);
+  <Slider Dtheme={DTheme} />;
+
+  /////////////////for Dark theme///////////////////
   return (
     <div className="NAV-Container">
       <AppBar
-        sx={{ color: "white", zIndex: 100, position: "fixed", width: "100%" }}
+        sx={{
+          color: "white",
+          backgroundColor: "var(--color--bg-primary)",
+          zIndex: 100,
+          position: "sticky",
+          width: "100%",
+        }}
       >
-        <Toolbar className="Dflex" style={{ justifyContent: "space-between" }}>
+        <Toolbar
+          className="Dflex"
+          style={
+            inMobile
+              ? { justifyContent: "space-between", padding: "0 50px" }
+              : { justifyContent: "space-between", paddingLeft: "280px" }
+          }
+        >
           {inMobile && (
-            <IconButton color="inherit" edge="start">
+            <IconButton
+              color="inherit"
+              edge="start"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
               <WidgetsIcon />
             </IconButton>
           )}
-          <IconButton color="inherit" sx={{}} edge="end">
-            {theme.palette.mode === "dark" ? <Brightness7 /> : <Brightness4 />}
-          </IconButton>
+          {/* /////////////////for Dark theme/////////////////// */}
+          {DTheme === "light" ? (
+            <IconButton
+              onClick={() => setDTheme("dark")}
+              color="inherit"
+              edge="end"
+            >
+              <Brightness4 />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={() => setDTheme("light")}
+              color="inherit"
+              edge="end"
+            >
+              <Brightness7 />
+            </IconButton>
+          )}
+          {/* /////////////////for Dark theme/////////////////// */}
           {!inMobile && "Search..."}
           {!isAthenticated ? (
             <Button>
@@ -49,18 +96,23 @@ const Nav = () => {
           {inMobile && "Search..."}
         </Toolbar>
       </AppBar>
-      {inMobile ? (
-        <Drawer
-          anchor="right"
-          variant="temporary"
-          open={mobileOpen}
-          ModalProps={{ keepMounted }}
-        >
-          <Sidebar setMobileOpen={setMobileOpen} />
-        </Drawer>
-      ) : (
-        <Drawer />
-      )}
+      <nav>
+        {inMobile ? (
+          <Drawer
+            anchor="right"
+            variant="temporary"
+            open={mobileOpen}
+            ModalProps={{ keepMounted: false }}
+            onClose={() => setMobileOpen(!mobileOpen)}
+          >
+            <Slider setMobileOpen={mobileOpen} />
+          </Drawer>
+        ) : (
+          <Drawer variant="permanent" open>
+            <Slider setMobileOpen={setMobileOpen} />
+          </Drawer>
+        )}
+      </nav>
     </div>
   );
 };

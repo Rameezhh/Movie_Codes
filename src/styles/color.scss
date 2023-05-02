@@ -1,3 +1,22 @@
 :root {
   --color--bg-primary: blue;
+  --color--bg-body: rgb(255, 255, 255);
+  // Sidebar
+  --color--divider: rgb(221, 221, 221);
+  --color-sidebar-heading: blue;
+  --color-sidebar-heading2: red;
+  --color-sidebar-subhead: rgb(71, 71, 71);
+  --color-sidebar-items: rgb(100, 100, 100);
 }
+/////////////////for Dark theme///////////////////
+[data-theme="dark"] {
+  --color--bg-primary: rgb(36, 36, 36);
+  --color--bg-body: rgb(29, 29, 29);
+  // Sidebar
+  --color--divider: rgb(143, 143, 143);
+  --color-sidebar-heading: rgb(255, 0, 0);
+  --color-sidebar-heading2: blue;
+  --color-sidebar-subhead: rgb(231, 231, 231);
+  --color-sidebar-items: rgb(214, 214, 214);
+}
+/////////////////for Dark theme///////////////////
