@@ -22,7 +22,7 @@ const Slider = () => {
     { lable: "Comedy", value: "comedy", Icon: LocalMovies },
     { lable: "Action", value: "action", Icon: Grade },
     { lable: "Honor", value: "honor", Icon: Upcoming },
-    { lable: "Animation", value: "animation", Icon: Upcoming },
+    { lable: "Animation", value: "animation", Icon: LocalMovies },
   ];
   return (
     <div>
